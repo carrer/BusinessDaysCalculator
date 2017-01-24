@@ -1,6 +1,6 @@
 {
   "name": "business-days-calculator",
-  "version": "1.0.0",
+  "version": "2.0.0",
   "description": "Library for calculating the number of working days (business days) between two dates (considering a Holiday Calendar given).",
   "main": "dist/BusinessDaysCalculator.js",
   "scripts": {
@@ -24,7 +24,6 @@
     "mocha": "^3.2.0"
   },
   "dependencies": {
-    "holidays-calendar": "^1.0.0",
-    "holidays-calendar-brazil": "^1.0.0"
+    "holidays-calendar": "^1.0"
   }
 }

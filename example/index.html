@@ -1,7 +1,7 @@
 <html>
     <head>
-        <script src="../node_modules/holidays-calendar/dist/HolidaysCalendar.js"></script>
-        <script src="../node_modules/holidays-calendar-brazil/src/HolidaysCalendar-brazil.js"></script>
+        <script src="holidays-calendar.js"></script>
+        <script src="holidays-calendar-brazil.js"></script>
         <script src="../dist/BusinessDaysCalculator.js"></script>
         <script>
         function process()
@@ -17,19 +17,19 @@
                     lineBreak = true;
                 document.getElementById('out').innerHTML += text + ( lineBreak ? LB : '');
             }
-
-
+            
             echo('Let\'s consider:');
             echo('TODAY = '+today);
             echo('A     = '+a);
             echo('B     = '+b+LB+LB);
             
-            echo('TODAY '+ (BusinessDaysCalculator.IsHoliday(today) ? 'is' : 'isn\'t') +' a holiday, according to the Brazilian Holidays Calendar'+LB);
+            echo('TODAY '+ (BusinessDaysCalculator.IsBusinessDay(today) ? 'is' : 'isn\'t') +' a business day, according to the Brazilian Holidays Calendar'+LB);
+            echo('(A) '+(BusinessDaysCalculator.IsBusinessDay(a) ? 'is' : 'isn\'t')+' a business day and '+(BusinessDaysCalculator.IsHoliday(a) ? 'is' : 'isn\'t')+' a holiday');
             echo('The next holiday in Brazil is due to '+ BusinessDaysCalculator.NextHoliday(today));
             echo('On the year 2020, Carnival in Brazil is due to '+BusinessDaysCalculator.NextHoliday(a)+LB);
 
-            echo('The number of business days between TODAY and A is '+BusinessDaysCalculator.WorkingDaysBetween(today, a, false)+', ignoring all holidays.'+LB+'Otherwise, it would be equal to '+BusinessDaysCalculator.WorkingDaysBetween(today, a)+' according to the Brazilian Holidays Calendar.'+LB);
-            echo('The number of holidays, in Brazil, for year 2020 is '+BusinessDaysCalculator.HolidaysBetween(a, b));
+            echo('The number of business days between TODAY and (A) is '+BusinessDaysCalculator.WorkingDaysBetween(today, a, false)+', ignoring all holidays.'+LB+'Otherwise, it would be equal to '+BusinessDaysCalculator.WorkingDaysBetween(today, a)+' according to the Brazilian Holidays Calendar.'+LB);
+            echo('The number of holidays, in Brazil, between (A) and (B) is '+BusinessDaysCalculator.HolidaysBetween(a, b));
         }
         </script>
     </head>

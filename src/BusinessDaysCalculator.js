@@ -1,12 +1,15 @@
-
 var BusinessDaysCalculator = (function(){
 
     var methods = {},
         holidays;
-    if (typeof module !== 'undefined' && this.module !== module)
+    if (typeof module !== 'undefined')
         holidays = require('holidays-calendar');
     else
+    {
+        if (typeof HolidaysCalendar == 'undefined')
+            throw 'You need to import "HolidaysCalendar" library.';
         holidays = HolidaysCalendar;
+    }
     
     RemainingHolidaysInYear = function(date)
     {
@@ -95,7 +98,7 @@ var BusinessDaysCalculator = (function(){
             day,
             temp;
 
-        while(year < 2100)
+        while(year <= 2100)
         {
             tmp = holidays.Month(year, month+1);
             if ( tmp )
@@ -186,6 +189,14 @@ var BusinessDaysCalculator = (function(){
             throw "'date' must be a Date object";
         
         return holidays.Day(date.getFullYear(), date.getMonth()+1, date.getDate()) != false;
+    }    
+
+    methods.IsBusinessDay = function(date)
+    {
+        if (!(date instanceof Date))
+            throw "'date' must be a Date object";
+        
+        return date.getDay() != 0 && date.getDay() != 6 && holidays.Day(date.getFullYear(), date.getMonth()+1, date.getDate()) == false;
     }
 
     methods.WorkingDaysBetween = function(date1, date2, discountHolidays)
@@ -232,15 +243,40 @@ var BusinessDaysCalculator = (function(){
         return discountHolidays ? working_days - methods.HolidaysBetween(date1, date2) : working_days;
     }
 
+    methods.Locale = function()
+    {
+        return holidays.Locale();
+    }
+
+    methods.SetCalendar = function(calendar)
+    {
+        if (typeof module !== 'undefined') {
+
+            if (typeof calendar != 'undefined' && typeof calendar['Year'] =='function' && typeof calendar['Month'] =='function' && typeof calendar['Day'] =='function')
+                holidays = calendar;
+        }
+
+        if (typeof calendar == 'string')
+            holidays.Locale(calendar);
+    }
+
+
     return methods;
 
 }());
 
-if (typeof module !== 'undefined' && this.module !== module)
-    module.exports = {
-        NextHoliday: BusinessDaysCalculator.NextHoliday,
-        WorkingDaysBetween: BusinessDaysCalculator.WorkingDaysBetween,
-        IsHoliday: BusinessDaysCalculator.IsHoliday,
-        HolidaysBetween: BusinessDaysCalculator.HolidaysBetween,
-        _Holidays: BusinessDaysCalculator._Holidays
-    }
+(function() {
+    'use strict';
+
+    if (typeof module !== 'undefined')
+        module.exports = {
+            NextHoliday: BusinessDaysCalculator.NextHoliday,
+            WorkingDaysBetween: BusinessDaysCalculator.WorkingDaysBetween,
+            IsBusinessDay: BusinessDaysCalculator.IsBusinessDay,
+            IsHoliday: BusinessDaysCalculator.IsHoliday,
+            HolidaysBetween: BusinessDaysCalculator.HolidaysBetween,
+            Locale: BusinessDaysCalculator.Locale,
+            SetCalendar: BusinessDaysCalculator.SetCalendar
+        }
+
+})();
