@@ -7,13 +7,19 @@
     "build": "gulp build",
     "test": "mocha src/BusinessDaysCalculator.test.js"
   },
-  "author": "Walter Carrer Neto <carrer@gmail.com>",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/carrer/BusinessDaysCalculator.git"
+  },
+  "author": "Walter Carrer Neto <carrer@gmail.com> (http://www.carr3r.com)",
   "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/carrer/BusinessDaysCalculator/issues"
+  },
+  "homepage": "https://github.com/carrer/BusinessDaysCalculator#readme",
   "devDependencies": {
     "chai": "^3.5.0",
-    "csv-parse": "^1.1.10",
     "gulp": "^3.9.1",
-    "gulp-replace": "^0.5.4",
     "gulp-uglify": "^2.0.0",
     "mocha": "^3.2.0"
   },
