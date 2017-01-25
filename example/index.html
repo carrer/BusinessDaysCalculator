@@ -29,6 +29,7 @@
             echo('On the year 2020, Carnival in Brazil is due to '+BusinessDaysCalculator.NextHoliday(a)+LB);
 
             echo('The number of business days between TODAY and (A) is '+BusinessDaysCalculator.WorkingDaysBetween(today, a, false)+', ignoring all holidays.'+LB+'Otherwise, it would be equal to '+BusinessDaysCalculator.WorkingDaysBetween(today, a)+' according to the Brazilian Holidays Calendar.'+LB);
+            echo('The number of continuous days between (A) and (B) is '+BusinessDaysCalculator.ContinuousDaysBetween(b, a));
             echo('The number of holidays, in Brazil, between (A) and (B) is '+BusinessDaysCalculator.HolidaysBetween(a, b));
         }
         </script>

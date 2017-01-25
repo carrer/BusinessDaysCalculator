@@ -243,6 +243,24 @@ var BusinessDaysCalculator = (function(){
         return discountHolidays ? working_days - methods.HolidaysBetween(date1, date2) : working_days;
     }
 
+    methods.ContinuousDaysBetween = function(date1, date2)
+    {
+        if (!(date1 instanceof Date))
+            throw "'date1' must be a Date object";
+        if (!(date2 instanceof Date))
+            throw "'date2' must be a Date object";
+
+        if (date1 > date2 )
+        {
+            var tempDate = date1;
+            date1 = date2;
+            date2 = tempDate;
+        }
+
+        return Math.ceil( ( date2.getTime() - date1.getTime() ) / 86400000); // days between the two dates
+    }
+
+
     methods.Locale = function()
     {
         return holidays.Locale();
@@ -271,6 +289,7 @@ var BusinessDaysCalculator = (function(){
     if (typeof module !== 'undefined')
         module.exports = {
             NextHoliday: BusinessDaysCalculator.NextHoliday,
+            ContinuousDaysBetween: BusinessDaysCalculator.ContinuousDaysBetween,
             WorkingDaysBetween: BusinessDaysCalculator.WorkingDaysBetween,
             IsBusinessDay: BusinessDaysCalculator.IsBusinessDay,
             IsHoliday: BusinessDaysCalculator.IsHoliday,

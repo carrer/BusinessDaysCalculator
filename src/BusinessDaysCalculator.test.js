@@ -72,6 +72,45 @@ describe('Working days calculation (WorkingDaysBetween)...', function()
 
 });
 
+describe('Continuous days calculation ...', function()
+{
+    it('should be 30 for between 1 January and 31 January', function()
+    {
+        var days = calculator.ContinuousDaysBetween(new Date("1 January 2050"), new Date("31 January 2050")); 
+        expect(days).to.be.a('number');
+        expect(days).to.be.equal(30);
+    });
+
+    it('should be 365 for a year', function()
+    {
+        var days = calculator.ContinuousDaysBetween(new Date("1 January 2019"), new Date("1 January 2020")); 
+        expect(days).to.be.a('number');
+        expect(days).to.be.equal(365);
+    });
+
+    it('should be zero for equal dates', function()
+    {
+        var days = calculator.ContinuousDaysBetween(new Date("1 January 2019"), new Date("1 January 2019")); 
+        expect(days).to.be.a('number');
+        expect(days).to.be.equal(0);
+    });
+
+    it('february should have 29 days in a leap year', function()
+    {
+        var days = calculator.ContinuousDaysBetween(new Date("1 February 2019"), new Date("1 March 2019")); 
+        expect(days).to.be.a('number');
+        expect(days).to.be.equal(29);
+    });
+
+    it('should work fine with reverse order', function()
+    {
+        var days1 = calculator.ContinuousDaysBetween(new Date("1 February 2019"), new Date("1 March 2019")); 
+        var days2 = calculator.ContinuousDaysBetween(new Date("1 March 2019"), new Date("1 February 2019")); 
+        expect(days1).to.be.equal(days2);
+    });
+
+});
+
 describe('Holidays calculation (HolidaysBetween) ...', function()
 {
     it('should work fine with no calendars', function()

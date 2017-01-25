@@ -37,6 +37,25 @@ console.log('The Carnival next year is due to '+ (BusinessDaysCalculator.NextHol
 
 ## API Reference
 
+### ContinuousDaysBetween(date1, date2)
+
+Counts the number of continuous/consecutive days between *date1* and *date2*
+
+**date1**: date, required. Starting date.
+
+**date2**: date, required. Ending date.
+
+***return***: integer. Number of continous days between dates.
+
+#### Example
+
+```bash
+var calculator = require('business-days-calculator');
+ 
+var data = calculator.ContinuousDaysBetween(new Date("1 January 2020"), new Date("31 January 2020"));
+\\data equals to 30
+```
+
 ### HolidaysBetween(date1, date2)
 
 Counts the number of holidays between *date1* and *date2*
