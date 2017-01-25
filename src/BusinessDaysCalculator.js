@@ -124,6 +124,24 @@ var BusinessDaysCalculator = (function(){
         return false;
     }
 
+    methods.NextWorkingDay = function(date, considerHolidays)
+    {
+        if ( !(date instanceof Date))
+            throw "'date' must be a Date object";
+
+        if (typeof considerHolidays == 'undefined')
+            considerHolidays = true;
+
+        var clone = new Date(+date);
+
+        while(true)
+        {
+            clone.setDate(clone.getDate()+1);
+            if (clone.getDay() != 0 && clone.getDay() != 6 && ( (considerHolidays && !methods.IsHoliday(clone)) || !considerHolidays))
+                return clone;
+        }
+    }
+
     methods.HolidaysBetween = function(date1, date2)
     {
         var numHolidays = 0,
@@ -289,6 +307,7 @@ var BusinessDaysCalculator = (function(){
     if (typeof module !== 'undefined')
         module.exports = {
             NextHoliday: BusinessDaysCalculator.NextHoliday,
+            NextWorkingDay: BusinessDaysCalculator.NextWorkingDay,
             ContinuousDaysBetween: BusinessDaysCalculator.ContinuousDaysBetween,
             WorkingDaysBetween: BusinessDaysCalculator.WorkingDaysBetween,
             IsBusinessDay: BusinessDaysCalculator.IsBusinessDay,

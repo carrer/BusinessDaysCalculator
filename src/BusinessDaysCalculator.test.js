@@ -218,6 +218,42 @@ describe('NextHoliday', function()
     });
 });
 
+describe('NextWorkingDay', function()
+{
+    it('should give next working day in the calendar, considering holidays', function()
+    {
+        calendar.AddCalendar('generic', {
+            "2017": {"months": {"1": {"days": {"2":"Holiday","3":"Holiday","4":"Holiday","5": "Holiday","6":"Holiday"}, "total": 1}}, "total": 1},
+        });
+        calculator.SetCalendar(calendar);
+
+        var nextHoliday = calculator.NextWorkingDay(new Date("1 January 2017"));
+
+        expect(nextHoliday).to.be.a('date');
+        expect(nextHoliday.getDate()).to.be.equal(9);
+        expect(nextHoliday.getFullYear()).to.be.equal(2017);
+        expect(nextHoliday.getMonth()).to.be.equal(0);
+
+    });
+
+    it('should give next working day in the calendar, not considering holidays', function()
+    {
+        calendar.AddCalendar('generic', {
+            "2017": {"months": {"1": {"days": {"2":"Holiday","3":"Holiday","4":"Holiday","5": "Holiday","6":"Holiday"}, "total": 1}}, "total": 1},
+        });
+        calculator.SetCalendar(calendar);
+
+        var nextHoliday = calculator.NextWorkingDay(new Date("1 January 2017"), false);
+
+        expect(nextHoliday).to.be.a('date');
+        expect(nextHoliday.getDate()).to.be.equal(2);
+        expect(nextHoliday.getFullYear()).to.be.equal(2017);
+        expect(nextHoliday.getMonth()).to.be.equal(0);
+
+    });
+
+});
+
 describe('SetCalendar', function()
 {
     it('should exchange between different calendars', function()

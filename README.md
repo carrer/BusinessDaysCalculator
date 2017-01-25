@@ -148,6 +148,26 @@ var data = calculator.NextHoliday(new Date("1 January 2020"));
 \\data equals to 'Mon Feb 24 2020' (which is Carnival)
 ```
 
+### NextWorkingDay(date, considerHolidays)
+
+Retrieves the next business/working day after *date*.
+
+**date**: date, required. Date reference (*date* won't be considered as a candidate).
+
+**considerHolidays**: boolean, optional (default: ***true***). Whether the holiday calendar should be used in the filter. If negative, this method will output the first week day after *date*;
+
+***return***: *date*. Next business/working day.
+
+#### Example
+```bash
+var calendar = require('holidays-calendar-brazil');
+var calculator = require('business-days-calculator');
+calculator.SetCalendar(calendar);
+ 
+var data = calculator.NextHoliday(new Date("1 January 2020"));
+\\data equals to 'Mon Feb 24 2020' (which is Carnival)
+```
+
 ### SetCalendar(calendar)
 
 Configures the library to use *calendar* as a reference for holidays.
@@ -186,7 +206,7 @@ Counts the number of business days between *date1* and *date2*
 
 **date2**: date, required. Ending date.
 
-**discountHolidays**: boolean, optional. Whether the library should consider holidays in the counting.
+**discountHolidays**: boolean, optional (default: ***true***). Whether the library should consider holidays in the counting.
 
 ***return***: integer. Number of business days according to the calendar in use.
 
